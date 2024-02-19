@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -5,15 +6,16 @@ import { Grid, IconButton, Box, Typography } from "@mui/material";
 
 import { shorten } from "../../utils/index";
 import { Post } from "../Page/HomePage/HomePage";
+import { PostContext } from "../../context/PostProvider";
 
 interface PostListProps {
   posts: Post[];
-  deletePost: (postId: string) => void;
   handleOpenForm: (defaultValues?: Post) => void;
 }
 
-function PostList({ posts, deletePost, handleOpenForm }: PostListProps) {
+function PostList({ posts, handleOpenForm }: PostListProps) {
   const navigate = useNavigate();
+  const { deletePost } = useContext(PostContext);
 
   return (
     <Grid container columns={{ md: 12, xs: 12 }}>

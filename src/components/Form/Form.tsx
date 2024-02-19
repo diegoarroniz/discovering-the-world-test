@@ -18,6 +18,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import axios from "../../api/axios";
 import { Post } from "../Page/HomePage/HomePage";
 import { validator } from "../../utils";
+import { PostContext } from "../../context/PostProvider";
 
 type FormInputs = {
   title: { value: string; error: string };
@@ -30,7 +31,6 @@ interface FormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   post?: Post | null;
-  fetchPosts: (category: string) => void;
   setSelectedPost: (value: React.SetStateAction<Post | null>) => void;
 }
 
@@ -45,10 +45,10 @@ const Form = ({
   open,
   post,
   setOpen,
-  fetchPosts,
   setSelectedPost,
 }: FormProps) => {
   const [formData, setFormData] = React.useState(emptyInputs);
+  const { getPosts} = React.useContext(PostContext)
 
   React.useEffect(() => {
     if (!post) return;
@@ -67,7 +67,7 @@ const Form = ({
     setSelectedPost(null);
   };
 
-  const hanldeSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const hanldeSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newPost: Post = {
       id: post?.id ?? Math.random().toString(),
@@ -78,7 +78,7 @@ const Form = ({
       comments: post?.comments ?? [],
     };
 
-    await axios({
+     axios({
       method: post ? "put" : "post",
       url: post ? `/${post.id}` : undefined,
       signal: AbortSignal.timeout(5000),
@@ -86,14 +86,14 @@ const Form = ({
     })
       .then((response: AxiosResponse) => {
         if (response.status === 200 || response.status === 201) {
-          fetchPosts("All");
+          getPosts("All");
           handleClose();
         }
       })
       .catch((error: AxiosError) => {
         console.error(`${error}`);
+        handleClose();
       });
-    handleClose();
   };
 
   const handleChange = (
