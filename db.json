@@ -1,0 +1,62 @@
+{
+  "posts": [
+    {
+      "id": "1.24",
+      "title": "A gloomy but beautiful aura at the same time",
+      "image": "https://th.bing.com/th/id/R.df8ba69a16ad146c6e8cc769fa900ab0?rik=qYqjcnEnWzdXug&pid=ImgRaw&r=0",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+      "category": "Travel",
+      "comments": [
+        {
+          "id": "2.1",
+          "author": "Anonymus",
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Peaceful day",
+      "image": "https://www.cairnsskydivers.com.au/wp-content/uploads/2021/07/skydivingoverthegreatbarrierreef.jpg",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+      "category": "Sports",
+      "comments": [
+        {
+          "id": "3.1",
+          "author": "Anonymus",
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "A good choice to eat",
+      "image": "https://th.bing.com/th/id/OIP.f5SX9FpHL8EV-QL7SdDYdgHaE8?rs=1&pid=ImgDetMain",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+      "category": "Health",
+      "comments": [
+        {
+          "id": "4.1",
+          "author": "Anonymus",
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        }
+      ]
+    },
+    {
+      "id": "0.34674599859102395",
+      "title": "New",
+      "image": "https://th.bing.com/th/id/R.385e7dbec0e6c313cfd6dc3b6fff1c95?rik=Ps5ZHpTWtX4y3A&pid=ImgRaw&r=0",
+      "description": "ghhhhhhhhhhhhhhhhhhjjjj",
+      "category": "Travel",
+      "comments": []
+    },
+    {
+      "id": "0.18206228009545122",
+      "title": "Latest",
+      "image": "https://th.bing.com/th/id/OIP.1d6tBbNiJTFQNEK_k0sSjQHaFj?rs=1&pid=ImgDetMain",
+      "description": "Description for this post",
+      "category": "Sports",
+      "comments": []
+    }
+  ]
+}
