@@ -8,6 +8,7 @@ import Banner from "../../Banner";
 import Comments from "../../Comments";
 import { Post } from "../../../types";
 import { SnackbarContext } from "../../../context";
+import Loading from "../../Loading";
 
 function PostPage() {
   const [post, setPost] = useState<Post | null>(null);
@@ -32,19 +33,16 @@ function PostPage() {
       });
   }, [postId, createAlert]);
 
-  if (!post) return <>"Loading..."</>;
+  if (!post) return <Loading />;
 
   return (
     <Grid
-      item
-      sx={{
-        backgroundColor: "#F0F0FF",
-        height: "100%",
-      }}
-      flexDirection={"column"}
       container
+      height="100%"
+      flexDirection={"column"}
+      sx={{ backgroundColor: "#F0F0FF" }}
     >
-      <Grid item>
+      <Grid item flexGrow={1}>
         <Banner postImage={post.image} postTitle={post.title} />
       </Grid>
       <Grid item padding={2}>

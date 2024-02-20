@@ -36,14 +36,11 @@ function HomePage() {
           </IconButton>
         </Box>
       </Grid>
-
       <CategoryButtonGroup
         categorySelected={categorySelected}
         handleSelectCategory={handleSelectCategory}
       />
-
       <PostList posts={posts} handleOpenForm={handleOpenForm} />
-
       <Form
         open={open}
         setOpen={setOpen}
