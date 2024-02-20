@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "../../../api/axios";
 import { AxiosError, AxiosResponse } from "axios";
-import Banner from "../../Banner";
-import Comments from "../../Comments";
 import { Grid } from "@mui/material";
 
-export interface Comment {
-  id: string;
-  author: string;
-  content: string;
-}
-
-export interface Post {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  category: string;
-  comments: Comment[];
-}
+import axios from "../../../api/axios";
+import Banner from "../../Banner";
+import Comments from "../../Comments";
+import { Post } from "../../../types";
+import { SnackbarContext } from "../../../context";
 
 function PostPage() {
   const [post, setPost] = useState<Post | null>(null);
+  const createAlert = useContext(SnackbarContext);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -35,9 +24,13 @@ function PostPage() {
         setPost(response.data);
       })
       .catch((error: AxiosError) => {
+        createAlert({
+          message: "Something went wrong.",
+          severity: "error",
+        });
         console.error(`${error}`);
       });
-  }, [postId]);
+  }, [postId, createAlert]);
 
   if (!post) return <>"Loading..."</>;
 
@@ -51,10 +44,10 @@ function PostPage() {
       flexDirection={"column"}
       container
     >
-      <Grid item >
+      <Grid item>
         <Banner postImage={post.image} postTitle={post.title} />
       </Grid>
-      <Grid item  padding={2}>
+      <Grid item padding={2}>
         <p>{post.description}</p>
       </Grid>
       <Grid item flexGrow={1} padding={2}>

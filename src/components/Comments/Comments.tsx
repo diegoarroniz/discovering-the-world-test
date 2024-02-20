@@ -1,13 +1,13 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 
-export interface Comment {
-  id: string;
-  author: string;
-  content: string;
+import { Comment } from "../../types";
+
+interface CommentsProps {
+  comments: Comment[];
 }
 
-function Comments({ comments }: { comments: Comment[] }) {
+function Comments({ comments }: CommentsProps) {
   const [newComment, setNewComment] = useState<string | null>(null);
 
   const handleChange = (
@@ -16,7 +16,6 @@ function Comments({ comments }: { comments: Comment[] }) {
     const { value } = e.target;
     setNewComment(value);
   };
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,11 +55,7 @@ function Comments({ comments }: { comments: Comment[] }) {
               onChange={handleChange}
               sx={{ paddingBottom: 2 }}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={!newComment}
-            >
+            <Button type="submit" variant="contained" disabled={!newComment}>
               Add
             </Button>
           </form>

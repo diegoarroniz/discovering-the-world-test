@@ -5,26 +5,12 @@ import { Grid, IconButton, Box } from "@mui/material";
 import Form from "../../Form";
 import PostList from "../../PostList";
 import CategoryButtonGroup from "../../CategoryButtonGroup";
-import { PostContext } from "../../../context/PostProvider";
-
-
-export interface Post {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  category: string;
-  comments: Comment[];
-}
-
-export interface Comment {
-  id: string;
-  author: string;
-  content: string;
-}
+import { PostContext } from "../../../context";
+import { Post } from "../../../types";
+import Loading from "../../Loading";
 
 function HomePage() {
-  const {posts, getPosts} = useContext(PostContext)
+  const { posts, getPosts } = useContext(PostContext);
   const [categorySelected, setCategorySelected] = useState<string>("All");
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [open, setOpen] = useState(false);
@@ -39,7 +25,7 @@ function HomePage() {
     setCategorySelected(category);
   };
 
-  if (!posts) return <>"Loading..."</>;
+  if (!posts) return <Loading />;
 
   return (
     <>
@@ -56,10 +42,7 @@ function HomePage() {
         handleSelectCategory={handleSelectCategory}
       />
 
-      <PostList
-        posts={posts}
-        handleOpenForm={handleOpenForm}
-      />
+      <PostList posts={posts} handleOpenForm={handleOpenForm} />
 
       <Form
         open={open}

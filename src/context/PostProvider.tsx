@@ -1,32 +1,25 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+} from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import axios from "../api/axios";
+import { Post } from "../types";
+import { SnackbarContext } from "../context";
 
-export type Post = {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  category: string;
-  comments: Comment[];
-};
-
-export type Comment = {
-  id: string;
-  author: string;
-  content: string;
-};
-
-type PostContextProps = {
+interface PostContextProps {
   posts: Post[] | null;
   getPosts: (category: string) => void;
   deletePost: (postId: string) => void;
-};
+}
 
-type PostProviderProps = {
+interface PostProviderProps {
   children: React.JSX.Element;
-};
+}
 
 export const PostContext = createContext<PostContextProps>({
   posts: [] || null,
@@ -34,47 +27,67 @@ export const PostContext = createContext<PostContextProps>({
   deletePost: () => {},
 });
 
-export default function PostProvider({
+export function PostProvider({
   children,
 }: PostProviderProps): React.JSX.Element {
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const createAlert = useContext(SnackbarContext);
 
-  const getPosts = (category: string) => {
-    axios({
-      method: "get",
-      signal: AbortSignal.timeout(5000),
-    })
-      .then((response: AxiosResponse) => {
-        const selectedCategory = response.data.filter(
-          (post: Post) => post.category === category
-        );
-        const newPosts = category === "All" ? response.data : selectedCategory;
-        setPosts(newPosts);
+  const getPosts = useCallback(
+    (category: string) => {
+      axios({
+        method: "get",
+        signal: AbortSignal.timeout(5000),
       })
-      .catch((error: AxiosError) => {
-        console.error(`${error}`);
-      });
-  };
+        .then((response: AxiosResponse) => {
+          const selectedCategory = response.data.filter(
+            (post: Post) => post.category === category
+          );
+          const newPosts =
+            category === "All" ? response.data : selectedCategory;
+          setPosts(newPosts);
+        })
+        .catch((error: AxiosError) => {
+          createAlert({
+            message: "Something went wrong.",
+            severity: "error",
+          });
+          console.error(`${error}`);
+        });
+    },
+    [createAlert]
+  );
 
-  const deletePost = (postId: string) => {
-    axios({
-      method: "delete",
-      url: `/${postId}`,
-      signal: AbortSignal.timeout(5000),
-    })
-      .then((response: AxiosResponse) => {
-        if (response.status === 200 || response.status === 201) {
-          getPosts("All");
-        }
+  const deletePost = useCallback(
+    (postId: string) => {
+      axios({
+        method: "delete",
+        url: `/${postId}`,
+        signal: AbortSignal.timeout(5000),
       })
-      .catch((error: AxiosError) => {
-        console.error(`${error}`);
-      });
-  };
+        .then((response: AxiosResponse) => {
+          if (response.status === 200 || response.status === 201) {
+            getPosts("All");
+            createAlert({
+              message: "Post successfully deleted.",
+              severity: "success",
+            });
+          }
+        })
+        .catch((error: AxiosError) => {
+          createAlert({
+            message: "Something went wrong.",
+            severity: "error",
+          });
+          console.error(`${error}`);
+        });
+    },
+    [getPosts, createAlert]
+  );
 
   useEffect(() => {
     getPosts("All");
-  }, []);
+  }, [getPosts]);
 
   return (
     <PostContext.Provider

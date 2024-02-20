@@ -5,8 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid, IconButton, Box, Typography } from "@mui/material";
 
 import { shorten } from "../../utils/index";
-import { Post } from "../Page/HomePage/HomePage";
-import { PostContext } from "../../context/PostProvider";
+import { Post } from "../../types"
+import { PostContext } from "../../context";
 
 interface PostListProps {
   posts: Post[];

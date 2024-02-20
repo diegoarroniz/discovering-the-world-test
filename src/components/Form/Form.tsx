@@ -16,15 +16,16 @@ import {
 import { AxiosError, AxiosResponse } from "axios";
 
 import axios from "../../api/axios";
-import { Post } from "../Page/HomePage/HomePage";
+import { Post } from "../../types";
 import { validator } from "../../utils";
-import { PostContext } from "../../context/PostProvider";
+import { PostContext, SnackbarContext } from "../../context";
+import { FormInputs } from "../../types";
 
-type FormInputs = {
-  title: { value: string; error: string };
-  description: { value: string; error: string };
-  category: { value: string; error: string };
-  image: { value: string; error: string };
+const emptyInputs: FormInputs = {
+  title: { value: "", error: "" },
+  description: { value: "", error: "" },
+  category: { value: "", error: "" },
+  image: { value: "", error: "" },
 };
 
 interface FormProps {
@@ -34,21 +35,10 @@ interface FormProps {
   setSelectedPost: (value: React.SetStateAction<Post | null>) => void;
 }
 
-const emptyInputs: FormInputs = {
-  title: { value: "", error: "" },
-  description: { value: "", error: "" },
-  category: { value: "", error: "" },
-  image: { value: "", error: "" },
-};
-
-const Form = ({
-  open,
-  post,
-  setOpen,
-  setSelectedPost,
-}: FormProps) => {
+const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
   const [formData, setFormData] = React.useState(emptyInputs);
-  const { getPosts} = React.useContext(PostContext)
+  const { getPosts } = React.useContext(PostContext);
+  const createAlert = React.useContext(SnackbarContext);
 
   React.useEffect(() => {
     if (!post) return;
@@ -78,7 +68,7 @@ const Form = ({
       comments: post?.comments ?? [],
     };
 
-     axios({
+    axios({
       method: post ? "put" : "post",
       url: post ? `/${post.id}` : undefined,
       signal: AbortSignal.timeout(5000),
@@ -88,11 +78,18 @@ const Form = ({
         if (response.status === 200 || response.status === 201) {
           getPosts("All");
           handleClose();
+          createAlert({
+            message: "Post successfully uploaded.",
+            severity: "success",
+          });
         }
       })
       .catch((error: AxiosError) => {
+        createAlert({
+          message: "Something went wrong when trying to upload the post.",
+          severity: "error",
+        });
         console.error(`${error}`);
-        handleClose();
       });
   };
 
