@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useEffect,
   useState,
   useContext,
   useCallback,
@@ -84,10 +83,6 @@ export function PostProvider({
     },
     [getPosts, createAlert]
   );
-
-  useEffect(() => {
-    getPosts("All");
-  }, [getPosts]);
 
   return (
     <PostContext.Provider

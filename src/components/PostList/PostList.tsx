@@ -5,8 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid, IconButton, Box, Typography } from "@mui/material";
 
 import { shorten } from "../../utils/index";
-import { Post } from "../../types"
+import { Post } from "../../types";
 import { PostContext } from "../../context";
+import { PostCard } from "./PostList.styles";
 
 interface PostListProps {
   posts: Post[];
@@ -20,21 +21,13 @@ function PostList({ posts, handleOpenForm }: PostListProps) {
   return (
     <Grid container columns={{ md: 12, xs: 12 }}>
       {posts?.map((post) => (
-        <Grid
+        <PostCard
           item
-          key={post.id}
-          flexGrow={1}
-          md={posts.length === 1 ? 12 : 6}
-          display="flex"
           xs={12}
-          sx={{
-            backgroundImage: `url(${post.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            color: "white",
-            cursor: "pointer",
-          }}
+          key={post.id}
+          image={post.image}
+          md={posts.length === 1 ? 12 : 6}
+          onClick={() => navigate(`/post/${post.id}`)}
         >
           <Box
             flexGrow={1}
@@ -48,7 +41,6 @@ function PostList({ posts, handleOpenForm }: PostListProps) {
               padding={3}
               paddingTop={20}
               flexDirection="column"
-              onClick={() => navigate(`/post/${post.id}`)}
             >
               <h1>{post.title}</h1>
               <h3>
@@ -59,28 +51,36 @@ function PostList({ posts, handleOpenForm }: PostListProps) {
               <Typography variant="overline">{post.category}</Typography>
             </Box>
             <Box
+              className="card-actions"
               sx={{
-                display: "flex",
-                justifyContent: "end",
                 gap: 2,
                 padding: 2,
+                display: "flex",
+                visibility: "hidden",
+                justifyContent: "end",
               }}
             >
               <IconButton
-                sx={{ color: "white" }}
-                onClick={() => handleOpenForm(post)}
+                color="inherit"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenForm(post);
+                }}
               >
                 <EditIcon />
               </IconButton>
               <IconButton
-                sx={{ color: "white" }}
-                onClick={() => deletePost(post.id)}
+                color="inherit"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deletePost(post.id);
+                }}
               >
                 <DeleteIcon />
               </IconButton>
             </Box>
           </Box>
-        </Grid>
+        </PostCard>
       ))}
     </Grid>
   );

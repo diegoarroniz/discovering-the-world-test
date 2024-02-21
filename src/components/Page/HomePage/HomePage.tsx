@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { Grid, IconButton, Box } from "@mui/material";
 
@@ -24,6 +24,10 @@ function HomePage() {
     getPosts(category);
     setCategorySelected(category);
   };
+
+  useEffect(() => {
+    getPosts("All");
+  }, [getPosts]);
 
   if (!posts) return <Loading />;
 
