@@ -22,7 +22,9 @@ function PostPage() {
       signal: AbortSignal.timeout(5000),
     })
       .then((response: AxiosResponse) => {
-        setPost(response.data);
+        if (response.status === 200 || response.status === 201) {
+          setPost(response.data);
+        }
       })
       .catch((error: AxiosError) => {
         createAlert({
@@ -49,7 +51,7 @@ function PostPage() {
         <p>{post.description}</p>
       </Grid>
       <Grid item flexGrow={1} padding={2}>
-        <Comments comments={post.comments} />
+        <Comments postId={postId} comments={post.comments} />
       </Grid>
     </Grid>
   );

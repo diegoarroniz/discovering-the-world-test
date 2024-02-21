@@ -69,7 +69,7 @@ const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
     };
 
     axios({
-      method: post ? "put" : "post",
+      method: post ? "patch" : "post",
       url: post ? `/${post.id}` : undefined,
       signal: AbortSignal.timeout(5000),
       data: newPost,
@@ -110,7 +110,7 @@ const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | SelectChangeEvent
   ) => {
-    const { name, value }: { value: string; name: string } = e.target;
+    const { name, value } = e.target;
     const error = validator({ name, value });
     setFormData((prevFormData) => ({
       ...prevFormData,

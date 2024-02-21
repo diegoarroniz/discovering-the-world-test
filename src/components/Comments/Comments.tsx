@@ -1,13 +1,17 @@
+import { useState, useContext } from "react";
 import { Button, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 import { Comment } from "../../types";
+import { SnackbarContext } from "../../context";
 
 interface CommentsProps {
+  postId: string | undefined;
   comments: Comment[];
 }
 
-function Comments({ comments }: CommentsProps) {
+function Comments({ postId, comments }: CommentsProps) {
+  const createAlert = useContext(SnackbarContext);
   const [newComment, setNewComment] = useState<string | null>(null);
 
   const handleChange = (
@@ -19,7 +23,31 @@ function Comments({ comments }: CommentsProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newComment);
+
+    axios({
+      method: "post",
+      url: `/${postId}/comments`,
+      signal: AbortSignal.timeout(5000),
+      data: {
+        author: "Juan",
+        content: newComment,
+      },
+    })
+      .then((response: AxiosResponse) => {
+        if (response.status === 200 || response.status === 201) {
+          createAlert({
+            message: "Comment successfully posted.",
+            severity: "success",
+          });
+        }
+      })
+      .catch((error: AxiosError) => {
+        createAlert({
+          message: "Something went wrong when trying to upload the comment.",
+          severity: "error",
+        });
+        console.error(`${error}`);
+      });
   };
 
   return (
