@@ -1,7 +1,6 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
-import { Grid } from "@mui/material";
 
 import axios from "../../../api/axios";
 import Banner from "../../Banner";
@@ -9,13 +8,19 @@ import Comments from "../../Comments";
 import { Post } from "../../../types";
 import { SnackbarContext } from "../../../context";
 import Loading from "../../Loading";
+import {
+  Container,
+  BannerContainer,
+  CommentsContainer,
+  DescriptionContainer,
+} from "./PostPage.styles";
 
 function PostPage() {
   const [post, setPost] = useState<Post | null>(null);
   const createAlert = useContext(SnackbarContext);
   const { postId } = useParams();
 
-  useEffect(() => {
+  const getPost = useCallback(() => {
     axios({
       method: "get",
       url: `/${postId}`,
@@ -35,25 +40,22 @@ function PostPage() {
       });
   }, [postId, createAlert]);
 
-  if (!post) return <Loading />;
+  useEffect(() => (postId ? getPost() : undefined), [postId, getPost]);
+
+  if (!post || !postId) return <Loading />;
 
   return (
-    <Grid
-      container
-      height="100%"
-      flexDirection={"column"}
-      sx={{ backgroundColor: "#F0F0FF" }}
-    >
-      <Grid item flexGrow={1}>
+    <Container container>
+      <BannerContainer item>
         <Banner postImage={post.image} postTitle={post.title} />
-      </Grid>
-      <Grid item padding={2}>
+      </BannerContainer>
+      <DescriptionContainer item>
         <p>{post.description}</p>
-      </Grid>
-      <Grid item flexGrow={1} padding={2}>
-        <Comments postId={postId} comments={post.comments} />
-      </Grid>
-    </Grid>
+      </DescriptionContainer>
+      <CommentsContainer item>
+        <Comments postId={postId} comments={post.comments} getPost={getPost} />
+      </CommentsContainer>
+    </Container>
   );
 }
 

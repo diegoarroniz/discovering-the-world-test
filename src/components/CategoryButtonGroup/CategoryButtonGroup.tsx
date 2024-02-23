@@ -1,4 +1,6 @@
-import { Grid, Button, Box, ButtonGroup } from "@mui/material";
+import { ButtonGroup } from "@mui/material";
+
+import { Container, StyledButton } from "./CategoryButtonGroup.styles";
 
 const categoryOptions = [
   {
@@ -29,27 +31,20 @@ function CategoryButtonGroup({
   handleSelectCategory,
 }: CategoryButtonGroupProps) {
   return (
-    <Grid item flexGrow={1}>
-      <Box display="flex" justifyContent="center" paddingBottom={2}>
-        <ButtonGroup aria-label="category button group" color="inherit">
-          {categoryOptions.map((category) => (
-            <Button
-              key={category.key}
-              type="button"
-              onClick={() => {
-                handleSelectCategory(category.name);
-              }}
-              sx={{
-                backgroundColor:
-                  category.name === categorySelected ? "#DCDCDC" : null,
-              }}
-            >
-              {category.name}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </Box>
-    </Grid>
+    <Container item>
+      <ButtonGroup aria-label="category button group" color="inherit">
+        {categoryOptions.map((category) => (
+          <StyledButton
+            type="button"
+            key={category.key}
+            selected={category.name === categorySelected}
+            onClick={() => handleSelectCategory(category.name)}
+          >
+            {category.name}
+          </StyledButton>
+        ))}
+      </ButtonGroup>
+    </Container>
   );
 }
 

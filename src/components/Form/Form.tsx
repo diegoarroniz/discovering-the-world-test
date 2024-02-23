@@ -30,12 +30,19 @@ const emptyInputs: FormInputs = {
 
 interface FormProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   post?: Post | null;
+  categorySelected: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedPost: (value: React.SetStateAction<Post | null>) => void;
 }
 
-const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
+const Form = ({
+  open,
+  post,
+  categorySelected,
+  setOpen,
+  setSelectedPost,
+}: FormProps) => {
   const [formData, setFormData] = React.useState(emptyInputs);
   const { getPosts } = React.useContext(PostContext);
   const createAlert = React.useContext(SnackbarContext);
@@ -59,6 +66,11 @@ const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
 
   const hanldeSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const inputs = Object.values(formData);
+    const containError = inputs.map((input) => input.error).some((v) => !!v);
+    if (containError) return;
+
     const newPost: Post = {
       id: post?.id ?? Math.random().toString(),
       title: formData.title.value,
@@ -76,7 +88,7 @@ const Form = ({ open, post, setOpen, setSelectedPost }: FormProps) => {
     })
       .then((response: AxiosResponse) => {
         if (response.status === 200 || response.status === 201) {
-          getPosts("All");
+          getPosts(categorySelected);
           handleClose();
           createAlert({
             message: "Post successfully uploaded.",

@@ -1,8 +1,13 @@
+export type Input = {
+  value: string;
+  error: string;
+};
+
 export type FormInputs = {
-  title: { value: string; error: string };
-  description: { value: string; error: string };
-  category: { value: string; error: string };
-  image: { value: string; error: string };
+  title: Input;
+  description: Input;
+  category: Input;
+  image: Input;
 };
 
 export type Post = {

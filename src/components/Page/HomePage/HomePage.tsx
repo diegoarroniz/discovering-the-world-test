@@ -1,6 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import { Grid, IconButton, Box } from "@mui/material";
 
 import Form from "../../Form";
 import PostList from "../../PostList";
@@ -8,6 +6,7 @@ import CategoryButtonGroup from "../../CategoryButtonGroup";
 import { PostContext } from "../../../context";
 import { Post } from "../../../types";
 import Loading from "../../Loading";
+import CreatePostButton from "../../CreatePostButton";
 
 function HomePage() {
   const { posts, getPosts } = useContext(PostContext);
@@ -25,21 +24,13 @@ function HomePage() {
     setCategorySelected(category);
   };
 
-  useEffect(() => {
-    getPosts("All");
-  }, [getPosts]);
+  useEffect(() => getPosts("All"), [getPosts]);
 
   if (!posts) return <Loading />;
 
   return (
     <>
-      <Grid item flexGrow={1}>
-        <Box display="flex" justifyContent="end" paddingRight={2}>
-          <IconButton color="primary" onClick={() => handleOpenForm()}>
-            <EditIcon />
-          </IconButton>
-        </Box>
-      </Grid>
+      <CreatePostButton handleOpenForm={handleOpenForm} />
       <CategoryButtonGroup
         categorySelected={categorySelected}
         handleSelectCategory={handleSelectCategory}
@@ -47,8 +38,9 @@ function HomePage() {
       <PostList posts={posts} handleOpenForm={handleOpenForm} />
       <Form
         open={open}
-        setOpen={setOpen}
         post={selectedPost}
+        categorySelected={categorySelected}
+        setOpen={setOpen}
         setSelectedPost={setSelectedPost}
       />
     </>

@@ -15,14 +15,14 @@ export const validator = ({ name, value }: { name: string; value: string }) => {
 
   switch (name) {
     case "title":
-      if (value.length > 20)
-        error = "The title must contain less than 20 characters.";
+      if (value.length < 5 || value.length > 25)
+        error =
+          "The title must contain more than 5 and less than 25 characters.";
       break;
 
     case "description":
-      if (value.length < 15 || value.length > 50)
-        error =
-          "The description must contain more than 15 and less than 50 characters.";
+      if (value.length < 20)
+        error = "The description must contain more than 20 characters.";
       break;
 
     case "image":
