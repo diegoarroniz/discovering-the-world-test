@@ -1,13 +1,11 @@
-import { Box } from "@mui/material";
-
 import { Comment } from "../../types";
 import {
   Title,
   Container,
   FormContainer,
-  CommentContainer,
 } from "./Comments.styles";
 import AddCommentForm from "../AddCommentForm";
+import CommentCard from "../CommentCard";
 
 interface CommentsProps {
   postId: string;
@@ -23,10 +21,7 @@ function Comments({ postId, comments, getPost }: CommentsProps) {
       </Title>
       {comments.length > 0 &&
         comments.map((comment) => (
-          <CommentContainer item key={comment.id} sm={8}>
-            <Box>{comment.author}</Box>
-            <Box>{comment.content}</Box>
-          </CommentContainer>
+          <CommentCard key={comment.id} comment={comment} />
         ))}
       <FormContainer item sm={8}>
         <AddCommentForm postId={postId} getPost={getPost} />

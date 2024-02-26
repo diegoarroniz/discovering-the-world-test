@@ -10,14 +10,6 @@ export const Title = styled(Grid)`
   flex-grow: 1;
 `;
 
-export const CommentContainer = styled(Grid)`
-  flex-grow: 1;
-  padding: 16px;
-  margin-bottom: 24px;
-  background-color: white;
-  border-radius: 8px;
-`;
-
 export const FormContainer = styled(Grid)`
   flex-grow: 1;
 `;
