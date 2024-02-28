@@ -17,7 +17,7 @@ export const Content = styled(Box)`
   flex-direction: column;
 `;
 
-export const Autor = styled(Typography)`
+export const Author = styled(Typography)`
   font-weight: bold;
   margin-bottom: 8px;
 `;

@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { Comment } from "../../types";
-import { Container, Content, Autor } from "./CommentCard.styles";
+import { Container, Content, Author } from "./CommentCard.styles";
 
 interface CommentsProps {
   comment: Comment;
@@ -13,7 +13,7 @@ function CommentCard({ comment }: CommentsProps) {
     <Container item sm={8}>
       <AccountCircleIcon />
       <Content>
-        <Autor>{comment.author}</Autor>
+        <Author>{comment.author}</Author>
         <Typography>{comment.content}</Typography>
       </Content>
     </Container>
