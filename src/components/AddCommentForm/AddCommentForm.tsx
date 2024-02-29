@@ -9,7 +9,7 @@ interface CommentsProps {
   getPost: () => void;
 }
 
-function Comments({ postId, getPost }: CommentsProps) {
+function AddCommentForm({ postId, getPost }: CommentsProps) {
   const [newComment, setNewComment] = useState<string | null>("");
   const [loading, setLoading] = useState(false);
   const createAlert = useContext(SnackbarContext);
@@ -80,4 +80,4 @@ function Comments({ postId, getPost }: CommentsProps) {
   );
 }
 
-export default Comments;
+export default AddCommentForm;
