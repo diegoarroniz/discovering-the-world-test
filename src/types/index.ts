@@ -29,7 +29,3 @@ export interface Alert {
   severity?: "error" | "warning" | "info" | "success";
   message: string;
 }
-
-export interface IAlerts extends Alert {
-  key: number;
-}
