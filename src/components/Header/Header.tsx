@@ -5,7 +5,7 @@ function Header() {
   return (
     <Container container>
       <Grid item flexGrow={1}>
-        <Typography variant="caption" color="primary" alignItems="center">
+        <Typography role="heading" variant="caption" color="primary" alignItems="center">
           <span style={{ fontSize: "1.5rem" }}>[ </span>
           Making your Life Easier
           <span style={{ fontSize: "1.5rem" }}> ]</span>

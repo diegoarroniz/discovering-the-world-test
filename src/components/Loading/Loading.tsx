@@ -13,7 +13,7 @@ export default function Loading(): React.JSX.Element {
       justifyContent="center"
       sx={{ minHeight: '100%', minWidth: '100%' }}
     >
-      <CircularProgress/>
+      <CircularProgress data-testid="loading-spinner" />
     </Grid>
   );
 }

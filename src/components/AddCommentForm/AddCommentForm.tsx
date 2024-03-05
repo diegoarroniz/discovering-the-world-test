@@ -4,7 +4,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 import { SnackbarContext } from "../../context";
 
-interface CommentsProps {
+export interface CommentsProps {
   postId: string;
   getPost: () => void;
 }

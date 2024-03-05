@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Header from "../Header";
 
-interface PageProps {
+export interface PageProps {
   /**
    * The page component that will be rendered inside the global Page component template
    */

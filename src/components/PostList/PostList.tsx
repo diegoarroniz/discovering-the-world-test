@@ -46,7 +46,9 @@ function PostList({ posts, handleOpenForm }: PostListProps) {
             </CardContent>
             <CardActions className="card-actions">
               <IconButton
+                name="edit"
                 color="inherit"
+                aria-label="edit"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOpenForm(post);
@@ -55,7 +57,9 @@ function PostList({ posts, handleOpenForm }: PostListProps) {
                 <EditIcon />
               </IconButton>
               <IconButton
+                name="delete"
                 color="inherit"
+                aria-label="delete"
                 onClick={(e) => {
                   e.stopPropagation();
                   deletePost(post.id);

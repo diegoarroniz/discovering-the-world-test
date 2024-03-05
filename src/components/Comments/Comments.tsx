@@ -7,7 +7,7 @@ import {
 import AddCommentForm from "../AddCommentForm";
 import CommentCard from "../CommentCard";
 
-interface CommentsProps {
+export interface CommentsProps {
   postId: string;
   comments: Comment[];
   getPost: () => void;
@@ -21,7 +21,7 @@ function Comments({ postId, comments, getPost }: CommentsProps) {
       </Title>
       {comments.length > 0 &&
         comments.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
+          <CommentCard key={comment.id} comment={comment} data-testid="comment-card"/>
         ))}
       <FormContainer item sm={8}>
         <AddCommentForm postId={postId} getPost={getPost} />

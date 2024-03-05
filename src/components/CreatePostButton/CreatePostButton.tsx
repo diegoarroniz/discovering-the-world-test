@@ -12,7 +12,7 @@ const CreatePostButton = ({ handleOpenForm }: CreatePostButtonInterface) => {
   return (
     <Container item>
       <IconButton color="primary" onClick={() => handleOpenForm()}>
-        <EditIcon />
+        <EditIcon data-testid="EditIcon" />
       </IconButton>
     </Container>
   );

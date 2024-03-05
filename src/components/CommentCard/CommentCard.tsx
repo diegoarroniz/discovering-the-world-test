@@ -4,7 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Comment } from "../../types";
 import { Container, Content, Author } from "./CommentCard.styles";
 
-interface CommentsProps {
+export interface CommentsProps {
   comment: Comment;
 }
 
