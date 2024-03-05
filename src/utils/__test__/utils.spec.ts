@@ -1,4 +1,4 @@
-import { shorten, validator } from '..'; // Adjust the import path as necessary
+import { shorten, validator } from '..';
 
 describe('Utils Testing', () => {
     describe('shorten', () => {
