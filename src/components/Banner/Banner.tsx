@@ -9,7 +9,7 @@ interface BannerProps {
 
 function Banner({ postImage, postTitle }: BannerProps) {
   return (
-    <Container image={postImage}>
+    <Container image={postImage} data-testid="banner-container">
       <BannerContent>
         <Button sx={{ color: "white" }} startIcon={<ArrowBackIosIcon />}>
           View Posts

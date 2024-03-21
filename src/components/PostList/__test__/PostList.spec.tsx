@@ -4,6 +4,7 @@ import { PostContext } from 'src/context';
 import PostList from '..';
 import userEvent from '@testing-library/user-event';
 
+jest.mock('axios');
 const mockPosts = [
     { id: '1', title: 'Post 1', description: 'Description 1', comments: [], category: 'Category 1', image: '' },
     { id: '2', title: 'Post 2', description: 'Description 2', comments: [], category: 'Category 2', image: '' },
@@ -16,6 +17,10 @@ const contextPostMock = {
 }
 
 describe('PostList', () => {
+    beforeEach(() => {
+        // Clear all mocks before each test
+        jest.clearAllMocks();
+    });
     test('renders posts correctly', () => {
         render(
             <MemoryRouter>

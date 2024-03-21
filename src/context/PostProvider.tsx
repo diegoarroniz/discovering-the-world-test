@@ -10,7 +10,7 @@ import axios from "../api/axios";
 import { Post } from "../types";
 import { SnackbarContext } from "../context";
 
-interface PostContextProps {
+export interface PostContextProps {
   posts: Post[] | null;
   getPosts: (category: string) => void;
   deletePost: (postId: string) => void;

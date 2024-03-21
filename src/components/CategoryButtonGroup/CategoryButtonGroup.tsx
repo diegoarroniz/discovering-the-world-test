@@ -36,8 +36,10 @@ function CategoryButtonGroup({
         {categoryOptions.map((category) => (
           <StyledButton
             type="button"
+            name={category.name}
             key={category.key}
             selected={category.name === categorySelected}
+            aria-pressed={category.name === categorySelected ? 'true' : 'false'}
             onClick={() => handleSelectCategory(category.name)}
           >
             {category.name}
